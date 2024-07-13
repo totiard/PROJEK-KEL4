@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Library System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Library System</h1>
+    <h2>Books</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Publisher</th>
+                <th>Year Published</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="book : ${books}">
+                <td th:text="${book.isbn}">ISBN</td>
+                <td th:text="${book.title}">Title</td>
+                <td th:text="${book.author}">Author</td>
+                <td th:text="${book.publisher}">Publisher</td>
+                <td th:text="${book.yearPublished}">Year Published</td>
+                <td th:text="${book.category}">Category</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/addBook">Add Book</a>
+
+    <h2>Members</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="member : ${members}">
+                <td th:text="${member.id}">ID</td>
+                <td th:text="${member.name}">Name</td>
+                <td th:text="${member.address}">Address</td>
+                <td th:text="${member.phoneNumber}">Phone Number</td>
+                <td th:text="${member.email}">Email</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/addMember">Add Member</a>
+
+    <h2>Borrowing Records</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Transaction ID</th>
+                <th>Member ID</th>
+                <th>ISBN</th>
+                <th>Borrow Date</th>
+                <th>Due Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="borrowingRecord : ${borrowingRecords}">
+                <td th:text="${borrowingRecord.id}">Transaction ID</td>
+                <td th:text="${borrowingRecord.member.id}">Member ID</td>
+                <td th:text="${borrowingRecord.book.isbn}">ISBN</td>
+                <td th:text="${#dates.format(borrowingRecord.borrowDate, 'yyyy-MM-dd')}">Borrow Date</td>
+                <td th:text="${#dates.format(borrowingRecord.dueDate, 'yyyy-MM-dd')}">Due Date</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/borrowBook">Borrow Book</a>
+</body>
+</html>
